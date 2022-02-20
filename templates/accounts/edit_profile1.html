@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>Facelook</title>
+	<!-- CSS and JavaScript references -->
+	<link rel="stylesheet" type="text/css" href="{% static 'CSS/header.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'CSS/home.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'CSS/post.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome/css/font-awesome.min.css' %}">
+	<script src="{% static 'javascript/header.js' %}"></script>
+	<script src="{% static 'javascript/home.js' %}"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- Ending of CSS and JavaScrit -->
+	<script type="text/javascript">
+		/// some script
+		
+		// jquery ready start
+		$(document).ready(function() {
+			// jQuery code
+		
+		}); 
+		// jquery end
+		</script>
+
+</head>
+<body onload="newpost();">
+	<!-- Header section -->
+	<div class="headerfixed">
+		<!-- Header start -->
+	<div class="header">
+		<!-- Wrapper start of heading-->
+		<div class="wrapper">
+			<!-- homaj logo -->
+
+			<nav class="navbar navbar-light bg-light justify-content-between">
+				<form action= "{% url 'accounts:search' %}"class="form-inline">
+				  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+				  <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
+				</form>
+			  
+
+
+
+			<!-- icon bar to navigate to all pages -->
+
+
+
+
+			<div class="icon-bar">
+			 <ul>
+			 	<!-- home -->
+			 	<li><a href="{% url 'accounts:home' %}" id="homaj-home"><p id="p1">Home</p></a></li>
+			 	<!-- profile -->
+			 	<li> <a href="{% url 'accounts:profile' %}"id="homaj-profile"><p id="p2">Profile</p></a> </li>
+			 	<!-- society -->
+			 	<li><a href="{% url 'accounts:society' %}"  id="homaj-society"><p id="p3">Society</p></a></li>
+			 	<!-- message -->
+			 	<li> <a href="{% url 'accounts:inbox' %}"  id="homaj-message"><p id="p4">Messages</p></a></li>
+			 	<!-- notification -->
+			 	<li> <a href="{% url 'logout' %}"  id="homaj-message"><p id="p4">Logout</p></a></li>
+			 </ul>	 
+			 
+			</div>
+			<!-- Ending of Icon bar -->
+		</nav> 
+
+		</div>
+
+
+<div class="main">
+    <div class="wrapper">
+
+    <div class="signup">
+        <!-- <h1>Join homaj today</h1> -->
+        
+        <form action="{% url 'accounts:edit_profile1' %}" enctype="multipart/form-data" method="POST">
+            {% csrf_token %}
+            
+            <table id="signuptable">
+                <tr>
+                    
+                    <td> First Name: </td>
+                    <td>{{form.first_name}}</td>
+                </tr>
+
+                <tr>
+                    <td>Lastt Name:</td><td> {{form.last_name}}</td>
+                </tr>
+
+              
+
+                <tr>
+                    <td>Gender: </td><td>{{form.gender}}</td>
+                </tr>
+
+                <tr>
+                    <td>Phone Number:</td><td> {{form.phone_number}}</td>
+                </tr>
+
+                <tr>
+                    <td>City: </td><td>{{form.city}}</td>
+                </tr>
+
+                <tr>
+                    <td>State: </td><td>{{form.state}}</td>
+                </tr>
+
+                <tr>
+                    <td>Country:</td><td> {{form.country}}</td>
+                </tr>
+                <!-- <tr>
+                    <td><input type="number" id="zipcode" class="inputtext2" placeholder="ZIP code" required/></td>
+                </tr>
+
+                <tr>
+                    <td><input type="text" id="state" class="inputtext2" placeholder="State" required/></td>
+                </tr>
+
+                <tr>
+                    <td><input type="text" id="District" class="inputtext2" placeholder="District" required/>
+                </tr> -->
+
+                <tr>
+                    <td>Hobbies:</td><td> {{form.Hobbies}}</td>
+                </tr>
+
+                <tr>
+                    <td>Languages:</td><td> {{form.Languages}}</td>
+                </tr>
+
+                <tr>
+                    <td>Image:</td><td> {{form.image}}</td>
+                </tr>
+
+                <tr id="nextbut">
+                    <td><button class="btn btn-primary" type="submit" >Submit</button></td>
+                </tr>
+
+            </table>
+        </form>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>

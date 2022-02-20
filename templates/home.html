@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- start of main content section -->
+<div class="mainnotfixed" id="mainnotfixed" overflow: scroll;>
+    <!-- Start of post an content -->
+    <div class="main mainpost" style="margin-bottom:20px; padding-bottom:10px;">	
+        
+        <div class="userimg">
+            {% if image %}
+            <img src="{{image.url}}">
+            {% else %}
+            <img src="{% static 'images/avatar.png' %}">
+            {% endif %}
+            </div>
+            <div class="username">				 <p class="name" style="top:15px;">@{{user.username}}</p>
+            </div>
+            <!-- <p class="quotes">
+                <textarea id="mypara" placeholder="Share an article ,photo ,video or idea."></textarea>
+            </p> -->
+            <!-- image load to post -->
+            <!-- <div class="post">
+                <img id="load2" class="postimg" src=" "/>
+            </div> -->
+
+            <div class="postbar" style="height: 12rem;">
+               <p> <form action="{% url 'accounts:home' %}", method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    
+                <!-- <input type="file" accept="images/*" id="chooseimg" onchange="loadFile(event)" onmouseover="onbuttoncolor()" onmouseout="outbuttoncolor()"/> -->
+                
+                <button type="submit" id="postmypost" class="postmypost" >Post</button>
+            </form></p>
+            </div>
+
+    </div>
+    <!-- End of post an content -->
+    <hr>
+
+    <!-- posted content view -->
+    
+    <div class="allpost">
+        <div class="infinite-container">
+        <!-- post 1 by creator-->
+        
+        {% for post in posts %}
+
+
+        <div class="infinite-item">
+        <div class="mainpost ">
+            
+            
+            <div class="username"><p class="name">{{ post.user.username }}</p></div>
+            
+            <p class="quotes">
+                
+                
+                {% if post.images %}
+               <img src="{{post.images.url}}" width="450rem" height="300rem" alt=""> 
+                {% endif %}
+
+               <p> {{post.message}}</p>
+
+                    {% if post in my_posts %}
+                        <a href="{% url 'accounts:post-update' pk=post.pk %}" class=" fa fa-pencil"></a>
+                    <a href="{% url 'accounts:post-delete' pk=post.pk %}" class="fa fa-trash"></a>
+                    
+                    {% endif %}
+            </p>
+
+            <div class="post"><img class="postimg" src="{{post.image.url}}"></div>
+
+            <div class="likedislike">
+            <p><form action="{% url 'posts:like_post' post.pk %}", method="POST">
+                {% csrf_token %}
+            
+                
+                <p class="like">
+                    
+                    <span class="nooflike" id="like1">{{ post.total_likes }} </span> likes
+                    
+                </p>
+                <p class="likedisbttn">
+                    <button type="submit", name="post_id", value={{post.id}} class='fa fa-thumbs-up'></button>
+                    
+                
+                    <!-- <span id="thumbsdown1" class="fa fa-thumbs-down" onclick="decrease('like1','dislike1','thumbsup1','thumbsdown1');"></span> -->
+                
+            </form> 
+            <form action="{% url 'posts:unlike' post.pk %}", method="POST">
+                {% csrf_token %}
+            
+                
+               
+                <p class="likedisbttn">
+                    <button type="submit", name="post_id", value={{post.id}} class='fa fa-thumbs-down'></button>
+                    
+                
+                    <!-- <span id="thumbsdown1" class="fa fa-thumbs-down" onclick="decrease('like1','dislike1','thumbsup1','thumbsdown1');"></span> -->
+                </p>
+            </p>
+            </form></p> </div>
+
+                <form action="{% url 'posts:comment_post' post.pk %}", method="POST">
+                    {% csrf_token %}
+                    {{comment_form.as_p }}
+                    <button type="submit"  class='btn btn-primary'>Comment</button>
+                </form>
+                <p><a href="{% url 'accounts:commentlist' post.pk %}">View Comments</a></p>
+                
+            </div>
+        
+         
+        </div>    
+        
+        {% endfor %}
+        
+        <!-- end of post 1 by creator -->
+
+    </div>
+    <!-- end of posted content view -->
+
+    <!-- button to view more previous post -->
+</div>
+</div>
+<!-- End of
+    main content section -->
+    <nav class="navbar navbar-inverse navbar-fixed-bottom">
+    <div class="pagination">
+    
+            {% if posts.has_next %}
+                <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">next</a>
+                
+            {% endif %}
+    </div>
+</nav>
+
+<script src="{% static 'javascript/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'javascript/infinite.min.js' %}"></script>
+<script>
+        var infinite = new Waypoint.Infinite({
+        element: $('.infinite-container')[0],
+
+        offset: 'bottom-in-view',
+
+        onBeforePageLoad: function(){
+            $('.loading').show();
+        },
+        onAfterPageLoad: function(){
+            $('.loading').hide();
+            },
+
+        });
+</script>
+
+{% endblock %}

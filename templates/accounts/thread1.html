@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>Facelook</title>
+	<!-- CSS and JavaScript references -->
+	<link rel="stylesheet" type="text/css" href="{% static 'CSS/header.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'CSS/home.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'CSS/post.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome/css/font-awesome.min.css' %}">
+	<script src="{% static 'javascript/header.js' %}"></script>
+	<script src="{% static 'javascript/home.js' %}"></script>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'css/message.css' %}">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- Ending of CSS and JavaScrit -->
+	<script type="text/javascript">
+		/// some script
+		
+		// jquery ready start
+		$(document).ready(function() {
+			// jQuery code
+		
+		}); 
+		// jquery end
+		</script>
+
+</head>
+<body onload="newpost();">
+	<!-- Header section -->
+	<div class="headerfixed">
+		<!-- Header start -->
+	<div class="header">
+		<!-- Wrapper start of heading-->
+		<div class="wrapper">
+			<!-- homaj logo -->
+
+			<nav class="navbar navbar-light bg-light justify-content-between">
+				<form action= "{% url 'accounts:search' %}"class="form-inline">
+				  <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name='keyword'>
+				  <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="fa fa-search"></i></button>
+				</form>
+			  
+
+
+
+			<!-- icon bar to navigate to all pages -->
+
+
+
+
+			<div class="icon-bar">
+			 <ul>
+			 	<!-- home -->
+			 	<li><a href="{% url 'accounts:home' %}" id="homaj-home"><p id="p1">Home</p></a></li>
+			 	<!-- profile -->
+			 	<li> <a href="{% url 'accounts:profile' %}"id="homaj-profile"><p id="p2">Profile</p></a> </li>
+			 	<!-- society -->
+			 	<li><a href="{% url 'accounts:society' %}"  id="homaj-society"><p id="p3">Society</p></a></li>
+			 	<!-- message -->
+			 	<li> <a href="{% url 'accounts:inbox' %}"  id="homaj-message"><p id="p4">Messages</p></a></li>
+			 	<!-- notification -->
+			 	<li><a href="#" onmouseover="headerchange(5);" onmouseout="headerorigin(5);" id="homaj-notification"><p id="p5">Notifications</p></a>
+			 	<div id="notify">
+			 		<p>No New Notification</p>
+			 		<hr style="background-color:white;width: 90%;">
+			 	</div>
+			 	</li>
+			 </ul>	 
+			 
+			</div>
+			<!-- Ending of Icon bar -->
+		</nav> 
+
+		</div>
+		<!-- Wrapper End of heading -->
+
+	</div>
+	<!-- End of header -->
+	</div>
+	<!-- End of header section -->
+
+
+	<!-- Content Section -->
+	<div class="content">
+		<!-- Start wrapper -->
+		<div class="wrapper">
+
+			<!-- Start Left section -->
+			<div class="leftfixed">
+				<!-- start sidebar left -->
+				<div class="sidebarleft">
+					{% if image %}
+					<img src="{{image.url}}">
+					{% else %}
+					<img src="{% static 'images/avatar.png' %}">
+					{% endif %}
+					<!-- <p id="sidename"> {{user_name}}</p> -->
+					<p id="ssn"> {{full_name}}</p>
+					<p id="country">India</p>
+					<a href="{% url 'accounts:edit_profile1' %}" id="viewall">Edit Profile</a>
+					<hr>
+					<p id="nosociety">{{friends_count}}</p>
+					<p id="societyname"><a href="{% url 'accounts:society' %}">Society</a></p>
+					<p id="logout"><a href="{% url 'logout' %}">Log Out</a></p>
+				</div>
+				<!-- End of sidebar left -->
+			</div>
+			<!-- End of leftfixed -->
+
+
+            
+
+            <!-- start of right section suggestion user -->
+			
+			<!-- End of right section suggestion user -->
+
+
+			<!-- Start of about homaj -->
+			
+			<!-- End of about homaj -->
+
+			<!-- message bar at the bottom -->
+			
+			<!-- End of message bar at the bottom -->
+
+		</div>
+		<!-- End of wrapper -->
+
+	</div>
+	<!-- End of content section -->
+	
+
+	
+
+    
+<div class="container">
+	<div class="row">
+		<div class="card col-md-12 mt-5 p-3 shadow-sm">
+			{% if thread.receiver == request.user %}
+				<h5>@{{ thread.user.username }}</h5>
+			{% else %}
+				<h5>@{{ thread.receiver.username }}</h5>
+			{% endif %}
+		</div>
+	</div>
+
+	{% if message_list.all.count == 0 %}
+	<div class="row my-5">
+		<div class="col-md-12">
+			<p class="empty-text">No Messages</p>
+		</div>
+	</div>
+	{% endif %}
+	<ul id="message-list">
+	{% for message in message_list %}
+	<div class="row">
+		<div class="col-md-12 my-1">
+			
+				
+					<li>[{{message.sender_user.username}}] : {{ message.body }}</li>
+				
+				
+			
+		</div>
+	</div>
+	{% endfor %}</ul>
+</div>
+    <div class="container">
+	 <div class="row"> 	
+	
+	
+	
+
+
+
+<!-- Old Code #################### -->
+
+		<div class="card col-md-10 p-3 shadow-sm">
+			<form class="form-control" action="">
+				<label for="">Type here...</label>
+				<!-- <textarea id="chat-log" cols="100" rows="20"></textarea><br> -->
+				<input id="chat-message-input" type="text" size="70">
+				<input id="chat-message-submit" type="button" value="Send">
+			</form>
+			{{ room_name|json_script:"room-name" }}
+			{{ request.user.username|json_script:"user_username" }}
+		</div>
+	</div>
+</div>
+
+
+	<script>
+        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+        const user_username = JSON.parse(document.getElementById('user_username').textContent);
+
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws'
+            + window.location.pathname
+            
+        );
+      
+
+        chatSocket.onmessage = function(e) {
+            
+			const ul = document.getElementById('message-list')
+			var li = document.createElement('li')
+			var data = JSON.parse(e.data)
+			li.append(document.createTextNode(
+				'[' + data.user_username + '] :' + ' ' + data.message
+			))
+			ul.append(li)
+            // document.querySelector('#chat-log').value += (data.user_username + data.message + '\n');
+        };
+
+		chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+
+		document.querySelector('#chat-message-submit').onclick = function(e) {
+            const messageInputDom = document.querySelector('#chat-message-input');
+            const message = messageInputDom.value;
+            chatSocket.send(JSON.stringify({
+                'message': message,
+                'user_username': user_username,
+                
+            }));
+            messageInputDom.value = '';
+        };
+
+        
+
+        // document.querySelector('#chat-message-input').focus();
+        // document.querySelector('#chat-message-input').onkeyup = function(e) {
+        //     if (e.keyCode === 13) {  // enter, return
+        //         document.querySelector('#chat-message-submit').click();
+        //     }
+        // };
+
+      
+    </script>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>

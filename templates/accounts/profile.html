@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>Profile</title>
+	<!-- CSS and JavaScript references -->
+	<link rel="stylesheet" type="text/css" href="{% static 'CSS/header.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static '/CSS/profile.css' %}">
+	<script src="{% static 'javascript/header.js' %}"></script>
+	<script src="{% static 'javascript/profile.js' %}"></script>
+	<!-- Ending of CSS and JavaScrit -->
+</head>
+<body  onload="showSlides(1);">
+	<!-- Header section -->
+	<div class="headerfixed">
+		<!-- Header start -->
+	<div class="header">
+		<!-- Wrapper start of heading-->
+		<div class="wrapper">
+			<!-- homaj logo -->
+			<a href="home.html"><img src="../images/homaj logo 4.png" width=120 height=45 class="logoletter"/></a>
+			<!-- Search bar -->
+			<form id="searching">
+			  <input type="text" name="search" placeholder="Search.." id="search">
+			</form>
+
+			<!-- icon bar to navigate to all pages -->
+			<div class="icon-bar">
+				<ul>
+					<!-- home -->
+					<li><a href="{% url 'accounts:home' %}" ><img src="{% static 'images/login/home.png' %}" id="homaj-home"><p id="p1">Home</p></a></li>
+					<!-- profile -->
+					<li> <a href="{% url 'accounts:profile' %}"><img src="{% static 'images/login/profile.png' %}" id="homaj-profile"><p id="p2">Profile</p></a> </li>
+					<!-- society -->
+					<li><a href="{% url 'accounts:society' %}" ><img src="{% static 'images/login/society.png' %}" id="homaj-society"><p id="p3">Society</p></a></li>
+					<!-- message -->
+					<li> <a href="{% url 'accounts:inbox' %}" ><img src="{% static 'images/login/message.png' %}" id="homaj-message"><p id="p4">Messages</p></a></li>
+					<!-- notification -->
+					<li><a href="#" onmouseover="headerchange(5);" onmouseout="headerorigin(5);"><img src="{% static 'images/login/notification.png' %}" id="homaj-notification"><p id="p5">Notifications</p></a>
+					<div id="notify">
+						<p>No New Notification</p>
+						<hr style="background-color:white;width: 90%;">
+					</div>
+					</li>
+				</ul>	 
+				  
+			   </div>
+			<!-- Ending of Icon bar -->
+
+
+		</div>
+		<!-- Wrapper End of heading -->
+
+	</div>
+	<!-- End of header -->
+	</div>
+	<!-- End of header section -->
+
+	<!-- Content Section -->
+	<div class="content">
+		<!-- Start wrapper -->
+		<div class="wrapper">
+
+			<!-- Start Left section profile -->
+			<div class="leftfixedprofile">
+
+				<!-- area of slide show -->
+				<div class="slideshowcontainer">
+					
+					<!-- change slideshow image -->
+					<input type="file" name="pic" class="chooseslide" accept="image/*" title="change slideshow image" onchange="loadFile(event)" onmouseover="stoptime()" onmouseout="starttime()"/>
+					<p class="slideEdit">&#9998;</p>
+					<!-- end of change slideshow image -->
+
+					<div class="bubble">
+					<span class="dot" onclick="currentslide(1)"></span>
+					<span class="dot" onclick="currentslide(2)"></span>
+					<span class="dot" onclick="currentslide(3)"></span>
+					</div>
+
+					<!-- sildeshow images -->
+					<div class="singleslide">
+						<div class="number">1/3</div>
+						<img src="{% static 'images/login/profile/society1.jpg' %}" class="slidimg"/>
+					</div>
+					<div class="singleslide">
+						<div class="number">2/3</div>
+						<img src="{% static 'images/login/profile/society2.jpg' %}" class="slidimg"/>
+					</div>
+					<div class="singleslide">
+						<div class="number">3/3</div>
+						<img src="{% static 'images/login/profile/society3.jpg' %}" class="slidimg"/>
+					</div>
+					<!-- End of slideshow images -->
+
+					<!-- prev and next button to change slideshow -->
+					<div class="prev" onclick="plusSlides(-1);">&#10094;</div>
+       				<div class="next" onclick="plusSlides(1);">&#10095;</div>
+				</div>
+				<!-- End area of slideshow -->
+
+				<!-- start sidebar left profile -->
+				<div class="sidebarleftprofile">
+
+					<!-- change image -->
+					<input type="file" name="pic" class="chooseslide1" accept="image/*" onchange="loadFile1(event)" title="change profile pic"/>
+					<p class="slideEdit1">&#9998;</p>
+					<!-- End change image -->
+
+					{% if object.image %}
+					    <img src="{{object.image.url}}" title="Profile Pic" class="profilepic">
+                    {% else %}
+                        <img src="{% static 'images/avatar.png' %}" title="Profile Pic" class="profilepic">
+                    {% endif %}
+					<p id="sidename"> {{ full_name }}</p>
+					<p id="nosociety">{{ friends_count }}</p>
+					<p id="societyname"><a href="{% url 'accounts:society' %}">Society</a></p>
+					<p id="logout"><a href="{% url 'accounts:logout' %}">Log Out</a></p>
+				</div>
+				<!-- End of sidebar left profile -->
+ 				
+
+				<!-- start of timeline of profile info -->
+ 				<div class="timeline">
+
+ 					<div class="container left">
+
+ 						<p class="slideEdit2" title="Edit" onclick="enablemodal()">&#9998;</p>
+ 						<div class="tcontent">
+ 							<h2>Personal Detail</h2>
+ 							<h4>First Name:</h4>
+ 							<p>{{object.first_name}}</p>
+ 							<h4>Last Name:</h4>
+ 							<p>{{object.last_name}}</p>
+ 							<h4>Hobbies:</h4>
+ 							<p>{{object.Hobbies}}</p>
+ 							<!-- <h4>Date Of Birth:</h4>
+ 							<p>{{object}}</p> -->
+ 							<h4>Gender:</h4>
+ 							<p>{{object.gender}}</p>
+ 							<h4>Phone no:</h4>
+ 							<p>{{object.phone_number}}</p>
+ 							<h4>Languages:</h4>
+ 							<p>{{object.Language}}</p>
+ 						</div>
+
+ 					</div>
+
+ 					<!--  -->
+
+ 					<div class="container right">
+
+ 						<p class="slideEdit2" title="Edit" onclick="enablemodal2()">&#9998;</p>
+ 						<div class="tcontent">
+ 							<h2>Address</h2>
+ 							<h4>Country:</h4>
+ 							<p>{{object.country}}</p>
+ 							<h4>State:</h4>
+ 							<p>{{object.state}}</p>
+ 							<h4>City:</h4>
+ 							<p>{{object.city}}</p>
+ 							
+ 						</div>
+
+ 					</div>
+
+ 					
+
+ 				</div>
+ 				<!-- End of timeline -->
+
+
+ 				<!-- Edit when click on timeline edit option -->
+ 				<!-- Personal Detail Edit -->
+ 				
+ 				<!-- End of address edit -->
+
+
+ 				<!-- More about you edit -->
+ 				<
+			<!-- End of leftfixed profile-->
+
+
+			<!-- start of right section suggestion user -->
+			<!-- start of right section suggestion user -->
+			
+					</div>
+					</div>
+
+					
+			<!-- Start of about homaj -->
+			<div class="rightfixed">
+
+				<div class="sidebarright" style="width: 280px;padding: 4px;margin-top: 20px; height: 150px;">
+					<hr style="top: -25px;">
+
+				<div class="foot">
+
+					<ul>
+						<li><a href="">About</a></li>
+						<li><a href="">Contact</a></li>
+						<li><a href="">Privacy and Policy</a></li>
+						<li><a href="">Help</a></li>
+					</ul>
+					<img src="../images/homaj logo.png"/>
+					<p>Copyright © www.homaj.com 2017 All Rights Reserved.</p>
+				</div>
+				</div>
+			</div>
+			<!-- End of about homaj -->
+
+			<!-- message bar at the bottom -->
+			<div class="message" id="msg1">
+				<button id="msg2" onclick="showhide()">Messaging</button>
+				<p> No New Messages.</p>
+			</div>
+			<!-- End of message bar at the bottom -->
+
+		</div>
+		<!-- End of wrapper -->
+
+	</div>
+	<!-- End of content section -->
+
+
+</body>
+</html>

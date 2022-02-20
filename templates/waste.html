@@ -1,0 +1,203 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar w/ text</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+            <a href="{% url 'accounts:home' %}" ><img src="{% static 'images/login/home.png' %}" id="homaj-home"><p id="p1">Home</p></a>
+        </li>
+        <li class="nav-item">
+             <a href="{% url 'accounts:profile' %}"><img src="{% static 'images/login/profile.png' %}" id="homaj-profile"><p id="p2">Profile</p></a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'accounts:society' %}" ><img src="{% static 'images/login/society.png' %}" id="homaj-society"><p id="p3">Society</p></a></li>
+        
+        <li class="nav-item"> <a href="{% url 'accounts:inbox' %}" ><img src="{% static 'images/login/message.png' %}" id="homaj-message"><p id="p4">Messages</p></a></li>
+      </ul>
+      <span class="navbar-text">
+        Navbar text with an inline element
+      </span>
+    </div>
+  </nav>
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+    <div class="container">
+	
+      <!-- Page header start -->
+      <div class="page-title">
+        <div class="row gutters">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+            <h5 class="title">Chat App</h5>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12"> </div>
+        </div>
+      </div>
+      <!-- Page header end -->
+    
+      <!-- Content wrapper start -->
+      <div class="content-wrapper">
+    
+        <!-- Row start -->
+        <div class="row gutters">
+    
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    
+            <div class="card m-0">
+    
+              <!-- Row start -->
+              <div class="row no-gutters">
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3">
+                  <div class="users-container">
+                    <div class="chat-search-box">
+                      <!-- <div class="input-group">
+                        <input class="form-control" placeholder="Search">
+                        <div class="input-group-btn">
+                          <button type="button" class="btn btn-info">
+                            <i class="fa fa-search"></i>
+                          </button>
+                        </div>
+                      </div> -->
+                    </div>
+                    <!-- <ul class="users">
+                      <li class="person" data-chat="person1">
+                        <div class="user">
+                          <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                          <span class="status busy"></span>
+                        </div>
+                        <p class="name-time">
+                          <span class="name">Steve Bangalter</span>
+                          <span class="time">15/02/2019</span>
+                        </p>
+                      </li>
+                      <li class="person" data-chat="person1">
+                        <div class="user">
+                          <img src="https://www.bootdey.com/img/Content/avatar/avatar1.png" alt="Retail Admin">
+                          <span class="status offline"></span>
+                        </div>
+                        <p class="name-time">
+                          <span class="name">Steve Bangalter</span>
+                          <span class="time">15/02/2019</span>
+                        </p>
+                      </li>
+                      <li class="person active-user" data-chat="person2">
+                        <div class="user">
+                          <img src="https://www.bootdey.com/img/Content/avatar/avatar2.png" alt="Retail Admin">
+                          <span class="status away"></span>
+                        </div>
+                        <p class="name-time">
+                          <span class="name">Peter Gregor</span>
+                          <span class="time">12/02/2019</span>
+                        </p>
+                      </li>
+                      <li class="person" data-chat="person3">
+                        <div class="user">
+                          <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                          <span class="status busy"></span>
+                        </div>
+                        <p class="name-time">
+                          <span class="name">Jessica Larson</span>
+                          <span class="time">11/02/2019</span>
+                        </p>
+                      </li>
+                      <li class="person" data-chat="person4">
+                        <div class="user">
+                          <img src="https://www.bootdey.com/img/Content/avatar/avatar4.png" alt="Retail Admin">
+                          <span class="status offline"></span>
+                        </div>
+                        <p class="name-time">
+                          <span class="name">Lisa Guerrero</span>
+                          <span class="time">08/02/2019</span>
+                        </p>
+                      </li>
+                      <li class="person" data-chat="person5">
+                        <div class="user">
+                          <img src="https://www.bootdey.com/img/Content/avatar/avatar5.png" alt="Retail Admin">
+                          <span class="status away"></span>
+                        </div>
+                        <p class="name-time">
+                          <span class="name">Michael Jordan</span>
+                          <span class="time">05/02/2019</span>
+                        </p>
+                      </li>
+                    </ul> -->
+                  </div>
+                </div>
+                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-9 col-9">
+                  {% if thread.receiver == request.user %}
+                  <div class="selected-user">
+                    <span>To: <span class="name">{{ thread.user }}</span></span>
+                  </div>
+                  {% else %}
+                  <div class="selected-user">
+                    <span>To: <span class="name">{{ thread.receiver }}</span></span>
+                  </div>
+                  {% endif %}
+                  <div class="chat-container">
+                    {% if message_list.all.count == 0 %}
+                    <div class="row my-5">
+                      <div class="col-md-12">
+                        <p class="empty-text">No Messages</p>
+                      </div>
+                    </div>
+                    {% endif %}
+                    {% for message in message_list %}
+                    <ul class="chat-box chatContainerScroll" id="message-list">
+                      {% if message.sender_user.username == request.user.username %}
+                      <li class="chat-left">
+                        <div class="chat-avatar">
+                          <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                          <div class="chat-name">{{message.sender_user.username}}</div>
+                        </div>
+                        <div class="chat-text">{{ message.body }}
+                        </div>
+                        <div class="chat-hour">08:55 <span class="fa fa-check-circle"></span></div>
+                      </li>
+                      {% else %}
+                      <li class="chat-right">
+                        <div class="chat-hour">08:56 <span class="fa fa-check-circle"></span></div>
+                        <div class="chat-text">{{ message.body }}
+                        </div>
+                        <div class="chat-avatar">
+                          <img src="https://www.bootdey.com/img/Content/avatar/avatar3.png" alt="Retail Admin">
+                          <div class="chat-name">{{message.receiver_user.username}}</div>
+                        </div>
+                      </li>
+                      {% endif %}
+                    </ul>
+                    {% endfor %}
+                    <!-- <div class="form-group mt-3 mb-0">
+                      <form action="">
+                      <textarea class="form-control" rows="3" placeholder="Type your message here..."></textarea>
+                      <input id="chat-message-submit" type="button" value="Send">
+                    </form> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Row end -->
+            </div>
+    
+          </div>
+    
+        </div>
+        <!-- Row end -->
+    
+      </div>
+      <!-- Content wrapper end -->

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+	<title>Facelook</title>
+	<!-- CSS and JavaScript references -->
+	<link rel="stylesheet" type="text/css" href="{% static 'CSS/header.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'CSS/home.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'CSS/post.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'fonts/font-awesome/css/font-awesome.min.css' %}">
+	<script src="{% static 'javascript/header.js' %}"></script>
+	<script src="{% static 'javascript/home.js' %}"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<!-- Ending of CSS and JavaScrit -->
+	<script type="text/javascript">
+		/// some script
+		
+		// jquery ready start
+		$(document).ready(function() {
+			// jQuery code
+		
+		}); 
+		// jquery end
+		</script>
+
+</head>
+<body onload="newpost();">
+	<!-- Header section -->
+	<div class="headerfixed">
+		<!-- Header start -->
+	<div class="header">
+		<!-- Wrapper start of heading-->
+		<div class="wrapper">
+			<!-- homaj logo -->
+
+			<nav class="navbar navbar-light bg-light justify-content-between">
+
+			  
+
+
+
+			<!-- icon bar to navigate to all pages -->
+
+
+
+
+			<div class="icon-bar">
+			 <ul>
+			 	<!-- home -->
+			 	<li><a href="{% url 'accounts:home' %}" id="homaj-home"><p id="p1">Home</p></a></li>
+			 	<!-- profile -->
+			 	<li> <a href="{% url 'accounts:profile' %}"id="homaj-profile"><p id="p2">Profile</p></a> </li>
+			 	<!-- society -->
+			 	<li><a href="{% url 'accounts:society' %}"  id="homaj-society"><p id="p3">Society</p></a></li>
+			 	<!-- message -->
+			 	<li> <a href="{% url 'accounts:inbox' %}"  id="homaj-message"><p id="p4">Messages</p></a></li>
+			 	<!-- notification -->
+			 	<li><a href="#" onmouseover="headerchange(5);" onmouseout="headerorigin(5);" id="homaj-notification"><p id="p5">Notifications</p></a>
+			 	<div id="notify">
+			 		<p>No New Notification</p>
+			 		<hr style="background-color:white;width: 90%;">
+			 	</div>
+			 	</li>
+			 </ul>	 
+			 
+			</div>
+			<!-- Ending of Icon bar -->
+		</nav> 
+
+		</div>
+		<!-- Wrapper End of heading -->
+
+	</div>
+	<!-- End of header -->
+	</div>
+	<!-- End of header section -->
+  
+  <div class="content">
+		<!-- Start wrapper -->
+		<div class="wrapper">
+
+			<!-- Start Left section -->
+			<div class="leftfixed">
+				<!-- start sidebar left -->
+				<div class="sidebarleft">
+					{% if image %}
+					<img src="{{image.url}}">
+					{% else %}
+					<img src="{% static 'images/avatar.png' %}">
+					{% endif %}
+					<!-- <p id="sidename"> {{user_name}}</p> -->
+					<p id="ssn"> {{full_name}}</p>
+					<p id="country">India</p>
+					<a href="{% url 'accounts:edit_profile1' %}" id="viewall">Edit Profile</a>
+					<hr>
+					<p id="nosociety">{{friends_count}}</p>
+					<p id="societyname"><a href="{% url 'accounts:society' %}">Society</a></p>
+					<p id="logout"><a href="{% url 'logout' %}">Log Out</a></p>
+				</div>
+				<!-- End of sidebar left -->
+			</div>
+
+	<!-- Content Section -->
+	<div class="content">
+		<!-- Start wrapper -->
+		<div class="wrapper">
+
+				<!-- End of sidebar left -->
+			</div>
+			<!-- End of leftfixed -->
+      <div class="card">
+        <h5 class="card-header">People near me:</h5>
+        
+        <div class="card-body">
+      <div class="input-group">
+        <div class="form-outline">
+        <form class="form-control" action="{% url 'accounts:geosearch' %}" id="searching">
+            <input type="text" name="keyword" placeholder="Enter distance.." id="search">
+        </div>
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="submit" value="Search by location">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+    
+          </form>
+        </div>
+      
+        
+        <div class="container">
+			<div class="card-body">
+        {% for u in user_list %}
+        <h5><a href="{% url 'accounts:other-profile' pk=u.pk %}">{{ u.user.first_name }}</a></h5>
+        {% endfor %}
+      </div>
+	</div>
+    </div>
+    </div>
+    </div>
+            <!-- start of right section suggestion user -->
+			
+			<!-- End of right section suggestion user -->
+
+
+			<!-- Start of about homaj -->
+			
+			<!-- End of about homaj -->
+
+			<!-- message bar at the bottom -->
+			<div class="message" id="msg1">
+				<button id="msg2" onclick="showhide()">Messaging</button>
+				<p> No New Messages.</p>
+			</div>
+			<!-- End of message bar at the bottom -->
+
+		</div>
+		<!-- End of wrapper -->
+
+	</div>
+	<!-- End of content section -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  
+
+
+
+
+
+
+
+
+</body></html>
+
+

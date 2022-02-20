@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+  
+  
+
+    <div class="card">
+      <h5 class="card-header">Search results:</h5>
+      {% if users %}
+      {% for i in users %}
+      <div class="card-body">
+        <h5 class="card-title">{{i}} 
+        <a href="#" class="btn btn-primary">View Profile</a></h5>
+      </div>
+      {% endfor %}
+    {% else %}
+    <h4>Sorry! No results found, try again..</h4>
+    {% endif %}
+    </div>
+    </div>
+    <!-- <div class="container">
+      <form action="{% url 'accounts:geosearch' %}" id="searching">
+        <input type="text" name="keyword" placeholder="Search.." id="search">
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="submit" value="People near me">
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+
+      </form>
+</div>
+      <div class="container">
+        <div class="container">
+          {% for u in user_list %}
+          <h2>{{ u.user.username }}</h2>
+          {% endfor %}
+        </div>
+      </div> -->
+    
+  
+
+{% endblock %}

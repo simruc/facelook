@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- start of main content section -->
+<div class="container">
+  
+  
+    <!-- {% if users %}
+    <div class="card">
+      <h5 class="card-header">Search results:</h5>
+      {% for i in user_list %}
+      <div class="card-body">
+        <h5 class="card-title">{{i}} 
+        <a href="#" class="btn btn-primary">View Profile</a></h5>
+      </div>
+      {% endfor %}
+    {% else %}
+    <h4>Sorry! No results found, try again..</h4>
+  </div>
+  {% endif %} -->
+    
+    
+  
+    <div class="card">
+      <h5 class="card-header">Received invitations:</h5>
+      {% for i in invites %}
+      <div class="card-body">
+        <table>
+        <tr>
+          <td><h5 class="card-title"><a href="{% url 'accounts:other-profile' pk=i.sender.pk %}">{{i}} </a></td>
+        <td><a href="{% url 'accounts:accept_invite' pk=i.sender.pk %}" type="submit" class="btn btn-success">Accept request</a> </td>
+        <td><a href="{% url 'accounts:reject_invite' pk=i.sender.pk %}" type="submit" class="btn btn-danger">Decline request</a></h5></td>
+      </tr>
+      </table>
+      {% endfor %}
+      </div>
+    
+
+   
+      <div class="card">
+        <h5 class="card-header">Sent Invitations:</h5>
+        
+        <div class="card-body">
+          <p class="card-title">
+            {% for i in sent_list %}
+            <table> <tr><td>
+          {% if i.image %}
+
+              <img src="{{i.image.url}}" width="80" height="80">
+          {% else %}
+              <img src="{% static 'images/avatar.png' %}" width="80" height="80" >
+          {% endif %}</td>
+          <td><a href="{% url 'accounts:other-profile' pk=i.pk %}">{{i}}</a> </td>
+          <td><a href="#" class="btn btn-primary disabled">Waiting for approval</a></p></td>
+        
+      </tr>
+      </table>
+        {% endfor %}
+      </div>
+      </div>      
+              
+      <div class="card">
+        <h5 class="card-header">Available to invite:</h5>
+        {% for i in available_list %}
+        <div class="card-body">
+          {% if i not in sent_list %}
+          <table>
+          <tr>
+            <td>
+              {% if i.image %}
+    
+                  <img src="{{i.image.url}}" width="80" height="80">
+              {% else %}
+                  <img src="{% static 'images/avatar.png' %}" width="80" height="80" >
+              {% endif %}</td>
+            <td><h5 class="card-title"><a href="{% url 'accounts:other-profile' pk=i.pk %}">{{i}}</a></td>
+          <td><a href="{% url 'accounts:send_invite' pk=i.pk %}" type="submit" class="btn btn-success">Send Request</a></h5></td>
+        </tr>
+        </table>
+        {% endif %}
+        </div>
+        {% endfor %}
+      </div>           
+                       
+      <div class="container" style="position: relative;">
+      <div class="card" style="width: 54rem; justify-self: right; align-self: right;">
+        <h5 class="card-header">Your friends:</h5>
+        {% for friend in friends %}
+        <div class="card-body" >
+          {% if friend in friends %}
+          <h5 class="card-title"><a href="{% url 'accounts:other-profile' pk=friend.pk %}">{{ friend.user.first_name }} {{friend.user.last_name}}</a>
+          <a href="{%url 'accounts:remove_friends' id=friend.id %}" class= 'btn btn-danger' >Remove Friend</a>
+          
+        {% endif %}
+        </div>
+        {% endfor %}
+      </div>  
+    
+    </div> 
+      <div class="card">
+        <h5 class="card-header">More people near me:</h5>
+        
+        <div class="card-body">
+          
+          <a href="{%url 'accounts:geosearch' %}" class= 'btn btn-primary' >Find people</a></h5>
+        
+        </div>
+       
+      </div>       
+
+
+{% endblock %}
